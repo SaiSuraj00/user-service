@@ -13,8 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.userservice.dto.Root;
 import com.userservice.dto.UserDetailsDto;
 import com.userservice.exceptions.ApiResponse;
-import com.userservice.exceptions.ImageNotFoundException;
-import com.userservice.exceptions.PricipalNotFoundException;
 import com.userservice.service.ImageService;
 import com.userservice.service.UserService;
 import com.userservice.util.UserUtils;	
@@ -30,18 +28,18 @@ public class UserController {
 	
 
 	@GetMapping("/user")
-	public ResponseEntity<UserDetailsDto> getUserProfile() throws PricipalNotFoundException {
+	public ResponseEntity<UserDetailsDto> getUserProfile() throws Exception {
 		return new ResponseEntity<>(userService.getUserProfile(), HttpStatus.OK);
 	}
 	
 	@GetMapping("/user/images")
-	public ResponseEntity<List<String>> getAllImages() throws PricipalNotFoundException {
+	public ResponseEntity<List<String>> getAllImages() throws Exception {
 		return new ResponseEntity<List<String>>(imageService.getAllImages(), HttpStatus.OK);
 		
 	}
 
 	@GetMapping("/user/images/{imageId}")
-	public ResponseEntity<Root> getImage(@PathVariable("imageId") String imageId) throws ImageNotFoundException, PricipalNotFoundException {
+	public ResponseEntity<Root> getImage(@PathVariable("imageId") String imageId) throws Exception {
 		return new ResponseEntity<Root>(imageService.getImage(imageId), HttpStatus.OK);
 	}
 

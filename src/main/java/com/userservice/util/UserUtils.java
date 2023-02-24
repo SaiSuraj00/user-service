@@ -21,6 +21,7 @@ public interface UserUtils {
 	public static final String DELETION_SUCCESSFULL = "Image deleted Successfully";
 	public static final String SESSION_TIMED_OUT = "Session timed out. Please try logging in again";
 	public static final String IMAGE_NOT_FOUND = "There is no image associated with the provided hash value";
+	public static final String CONFLICT = "Username is already taken. Please use a different one";
 	
 	public static ApiResponse getProperApiResponse(int code, String message) {
 		return new ApiResponse(code, message);
