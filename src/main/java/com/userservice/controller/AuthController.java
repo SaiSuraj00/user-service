@@ -1,5 +1,7 @@
 package com.userservice.controller;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +37,7 @@ public class AuthController {
 	 */
 
 	@PostMapping("/register")
-	public ResponseEntity<ApiResponse> registerUser(@RequestBody UserRegistrationDto dto) {
+	public ResponseEntity<ApiResponse> registerUser(@Valid @RequestBody UserRegistrationDto dto) {
 		if(userRepository.findByUsername(dto.getUsername()).isPresent()) {
 			logger.warn(UserUtils.CONFLICT);
 			return new ResponseEntity<>(UserUtils.getProperApiResponse(HttpStatus.CONFLICT.value(), UserUtils.CONFLICT), HttpStatus.CONFLICT);

@@ -61,9 +61,9 @@ public interface UserUtils {
 	/*
 	 * Packs NOT_FOUND exceptions and returns the ApiResponse
 	 */
-	public static ResponseEntity<ApiResponse> packExceptionDetails(Exception exception) {
-		ApiResponse error = new ApiResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
-		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	public static ResponseEntity<ApiResponse> packExceptionDetails(Exception exception, HttpStatus httpStatus) {
+		ApiResponse error = new ApiResponse(httpStatus.value(), exception.getMessage());
+		return new ResponseEntity<>(error, httpStatus);
 		
 	}
 }

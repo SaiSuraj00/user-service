@@ -1,10 +1,31 @@
 package com.userservice.dto;
 
-public class UserRegistrationDto {
+import java.io.Serializable;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
+public class UserRegistrationDto implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@NotEmpty
+	@NotNull
+	@Size( min = 3 , max = 20)
 	private String firstname;
+	@NotEmpty
+	@NotNull
+	@Size( min = 3 , max = 20)
 	private String lastname;
+	@NotEmpty
+	@NotNull
+	@Size( min = 3 , max = 20)
+	@Pattern(regexp = "^[A-Za-z0-9]*$")
 	private String username;
+	@NotEmpty
+	@NotNull
 	private String password;
 	public UserRegistrationDto() {
 		super();
