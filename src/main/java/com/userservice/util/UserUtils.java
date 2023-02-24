@@ -11,12 +11,14 @@ import com.userservice.dto.Root;
 import com.userservice.dto.UserDetailsDto;
 import com.userservice.entity.User;
 import com.userservice.exceptions.ApiResponse;
+import com.userservice.exceptions.PricipalNotFoundException;
 
 public interface UserUtils {
 	
 	public final static String INTERNAL_SERVER_ERROR = "Your request cannot be processed at this time. Please try again later";
 	public final static String CREATED = "Your registration is successfully completed";
 	public final static String NOT_FOUND = "User details are not found";
+	public static final String DELETION_SUCCESSFULL = "Image deleted Successfully";
 	
 	public static ApiResponse getProperApiResponse(int code, String message) {
 		return new ApiResponse(code, message);
@@ -30,9 +32,12 @@ public interface UserUtils {
 		return list.stream().map(root -> root.getData().getLink()).collect(Collectors.toList());
 	}
 	
-	public static UserDetails getCurrentPrincipal() {
+	public static UserDetails getCurrentPrincipal() throws PricipalNotFoundException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+		if(userDetails == null) {
+			throw new PricipalNotFoundException("Session timed out. Please try logging in again");
+		}
 		return userDetails;
 		
 	}

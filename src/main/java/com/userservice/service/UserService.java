@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.userservice.dto.UserDetailsDto;
 import com.userservice.entity.User;
-import com.userservice.exceptions.UserNotFoundException;
+import com.userservice.exceptions.PricipalNotFoundException;
 import com.userservice.repository.UserRepository;
 import com.userservice.util.UserUtils;
 
@@ -20,12 +20,15 @@ public class UserService {
 	@Autowired
 	private ImageService imageService;
 	
-	public UserDetailsDto getUserProfile() throws UserNotFoundException {
+	/*
+	 * 	Retrieves Principal from current Security Context if exists
+	 *  Responds with all the user details UserDetailsDto
+	 *  and all the image links associated with current account 
+	 */
+	
+	public UserDetailsDto getUserProfile() throws PricipalNotFoundException {
 		String username = UserUtils.getCurrentPrincipal().getUsername();
 		Optional<User> user = userRepository.findByUsername(username);
-		if(user.isEmpty()) {
-			throw new UserNotFoundException("There is no user currently logged in");
-		}
 		return UserUtils.packUserDetails(user.get(), imageService.getAllImages());
 	}
 	

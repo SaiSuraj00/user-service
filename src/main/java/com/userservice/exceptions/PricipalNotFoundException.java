@@ -1,12 +1,11 @@
 package com.userservice.exceptions;
 
-public class UserNotFoundException extends Exception {
+public class PricipalNotFoundException extends Exception {
 
 	private static final long serialVersionUID = 1L;
-	
 	private String message;
 
-	public UserNotFoundException(String message) {
+	public PricipalNotFoundException(String message) {
 		super(message);
 	}
 

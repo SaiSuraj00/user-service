@@ -22,6 +22,13 @@ public class AuthController {
 
 	@Autowired
 	BCryptPasswordEncoder encoder;
+	
+	/*
+	 * Registers a user in the app 
+	 * Takes {@link UserRegistrationDto} with set of basic user details
+	 * along with username & password
+	 * 
+	 */
 
 	@PostMapping("/register")
 	public ResponseEntity<ApiResponse> registerUser(@RequestBody UserRegistrationDto dto) {
