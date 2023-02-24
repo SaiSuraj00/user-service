@@ -19,12 +19,22 @@ public class SecurityConfig {
 	@Autowired
 	private UserDetailsService userDetailsService;
 
+	/*
+	 * Returns AuthenticationManager Bean with the available
+	 * AuthenticationProvider in spring context
+	 */
 	@Bean
     public AuthenticationManager authenticationManager(
             AuthenticationConfiguration authConfig) throws Exception {
         return authConfig.getAuthenticationManager();
     }
 
+	/*
+	 * Returns DaoAuthenticationProvider Bean with the userDetailsService
+	 * that has the ability to trigger loadUserByUsername method to fetch
+	 * the UserDetails
+	 * 
+	 */
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
         DaoAuthenticationProvider authenticationProvider
@@ -34,11 +44,20 @@ public class SecurityConfig {
         return authenticationProvider;
     }
 	
+    /*
+     * Returns BCryptPasswordEncoder bean which is injected into
+     * DaoAuthenticationProvider to encode & decode the password
+     * with default encryption algorithm during the registration
+     * and login scenarios
+     */
 	@Bean
 	public BCryptPasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
+	/*
+     * Configures Security rules that are intended for the App
+     */
 	@Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http.headers().frameOptions().disable();
