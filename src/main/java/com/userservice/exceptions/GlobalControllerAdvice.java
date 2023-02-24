@@ -2,29 +2,27 @@ package com.userservice.exceptions;
 
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+
+import com.userservice.util.UserUtils;
 
 @ControllerAdvice
 public class GlobalControllerAdvice {
 
 	@ExceptionHandler(value = ImageNotFoundException.class)
-	public ResponseEntity<Object> exception(ImageNotFoundException exception) {
-		ApiResponse error = new ApiResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
-		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	public ResponseEntity<ApiResponse> exception(ImageNotFoundException exception) {
+		return UserUtils.packExceptionDetails(exception);
 	}
 	
 	@ExceptionHandler(value = UserNotFoundException.class)
-	public ResponseEntity<Object> exception(UserNotFoundException exception) {
-		ApiResponse error = new ApiResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
-		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	public ResponseEntity<ApiResponse> exception(UserNotFoundException exception) {
+		return UserUtils.packExceptionDetails(exception);
 	}
 	
 	@ExceptionHandler(value = UserPrincipalNotFoundException.class)
-	public ResponseEntity<Object> exception(UserPrincipalNotFoundException exception) {
-		ApiResponse error = new ApiResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
-		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+	public ResponseEntity<ApiResponse> exception(UserPrincipalNotFoundException exception) {
+		return UserUtils.packExceptionDetails(exception);
 	}
 }

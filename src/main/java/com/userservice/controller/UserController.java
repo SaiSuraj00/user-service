@@ -15,7 +15,6 @@ import com.userservice.dto.UserDetailsDto;
 import com.userservice.exceptions.ApiResponse;
 import com.userservice.exceptions.ImageNotFoundException;
 import com.userservice.exceptions.PricipalNotFoundException;
-import com.userservice.repository.UserRepository;
 import com.userservice.service.ImageService;
 import com.userservice.service.UserService;
 import com.userservice.util.UserUtils;	
@@ -28,9 +27,6 @@ public class UserController {
 	
 	@Autowired
 	private ImageService imageService;
-
-	@Autowired
-	UserRepository userRepository;
 	
 
 	@GetMapping("/user")
