@@ -16,6 +16,11 @@ public class GlobalControllerAdvice {
 		return UserUtils.packExceptionDetails(exception);
 	}
 	
+	@ExceptionHandler(value = Exception.class)
+	public ResponseEntity<ApiResponse> exception(Exception exception) {
+		return UserUtils.packExceptionDetails(exception);
+	}
+	
 	@ExceptionHandler(value = UserNotFoundException.class)
 	public ResponseEntity<ApiResponse> exception(UserNotFoundException exception) {
 		return UserUtils.packExceptionDetails(exception);

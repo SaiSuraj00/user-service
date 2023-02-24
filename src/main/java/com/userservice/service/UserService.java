@@ -21,7 +21,7 @@ public class UserService {
 	private ImageService imageService;
 	
 	/*
-	 * 	Retrieves Principal from current Security Context if exists
+	 * 	Returns Principal from current Security Context if exists
 	 *  Responds with all the user details UserDetailsDto
 	 *  and all the image links associated with current account 
 	 */

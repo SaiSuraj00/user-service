@@ -20,18 +20,32 @@ public interface UserUtils {
 	public static final String NOT_FOUND = "User details are not found";
 	public static final String DELETION_SUCCESSFULL = "Image deleted Successfully";
 	public static final String SESSION_TIMED_OUT = "Session timed out. Please try logging in again";
+	public static final String IMAGE_NOT_FOUND = "There is no image associated with the provided hash value";
 	
 	public static ApiResponse getProperApiResponse(int code, String message) {
 		return new ApiResponse(code, message);
 	}
 
+	/*
+	 * Packs basic information and images associated with the
+	 * current user and returns UserDetailsDto with all the details
+	 */
 	public static UserDetailsDto packUserDetails(User user, List<String> list) {
 		return new UserDetailsDto(user.getFirstname(), user.getLastname(), list);
 	}
 	
+	/*
+	 * Returns list of image links from Root(Image) list with the help
+	 * of stream api
+	 */
 	public static List<String> getImageLInks(List<Root> list) {
 		return list.stream().map(root -> root.getData().getLink()).collect(Collectors.toList());
 	}
+	
+	/*
+	 * Returns the currrent user principal from the security context
+	 * @throws PricipalNotFoundException if principal doesn't exist
+	 */
 	
 	public static UserDetails getCurrentPrincipal() throws PricipalNotFoundException {
 		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -43,6 +57,9 @@ public interface UserUtils {
 		
 	}
 
+	/*
+	 * Packs NOT_FOUND exceptions and returns the ApiResponse
+	 */
 	public static ResponseEntity<ApiResponse> packExceptionDetails(Exception exception) {
 		ApiResponse error = new ApiResponse(HttpStatus.NOT_FOUND.value(), exception.getMessage());
 		return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);

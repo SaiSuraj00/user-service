@@ -44,7 +44,7 @@ public class ImageService {
 	    HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 	    ResponseEntity<Root> response = restTemplate.exchange(BASE_URL+username+"/image/"+imageId, HttpMethod.GET, entity, Root.class);
 	    if(!response.hasBody()) {
-	    	throw new ImageNotFoundException("There is no image associated with the provided hash value : "+imageId);
+	    	throw new ImageNotFoundException(UserUtils.IMAGE_NOT_FOUND);
 	    }
 	    return response.getBody();
 	}
@@ -55,12 +55,17 @@ public class ImageService {
 	 *  a username & image id from imgur external API 
 	 *  @throws PricipalNotFoundException if Principal doesn't exist
 	 */
-	public void deleteImage(String imageId) throws PricipalNotFoundException {
+	public void deleteImage(String imageId) throws Exception {
 		String username = UserUtils.getCurrentPrincipal().getUsername();
 	    HttpHeaders headers = new HttpHeaders();
 	    headers.add("Authorization", "Client-ID " + IMGUR_CLIENT_ID);
 	    HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
-	    restTemplate.delete(BASE_URL+username+"/image/"+imageId, entity);
+	    try {
+	    	restTemplate.delete(BASE_URL+username+"/image/"+imageId, entity);
+	    }
+	    catch (Exception e) {
+			throw new Exception(UserUtils.INTERNAL_SERVER_ERROR);
+		}
 	}
 	
 	/*

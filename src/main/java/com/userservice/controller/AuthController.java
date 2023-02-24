@@ -21,7 +21,7 @@ public class AuthController {
 	private UserRepository userRepository;
 
 	@Autowired
-	BCryptPasswordEncoder encoder;
+	private BCryptPasswordEncoder encoder;
 	
 	/*
 	 * Registers a user in the app 
